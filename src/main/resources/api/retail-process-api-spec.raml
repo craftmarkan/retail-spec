@@ -1,0 +1,222 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/a730ee9d-a462-4745-b4b3-16f91a6630bf/ # 
+title: Retail-Process-API-Specification
+
+types:
+  Product : !include dataTypes/Product.raml
+  Bill : !include dataTypes/Bill.raml
+  productCatagory : !include dataTypes/productCategory.raml
+  productById : !include dataTypes/productById.raml
+
+/products:
+  description: retrive products data
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/Product.raml
+                
+                
+      400:
+        body:
+          application/json:
+            example: {"bad request"}
+      500:
+        body:
+          application/json:
+            example: {"server not found"}
+              
+  /id:
+    description: retrive products by specific id
+    get:
+      queryParameters:
+        id:
+          type: integer
+          required: true
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/productById.raml
+                
+        404:
+          body:
+            application/json:
+              example: {"not found"}
+        500:
+          body:
+            application/json:
+              example: {"server not found"}
+                
+    put:
+      description: update products by specific id
+      queryParameters:
+        id:
+          type: integer
+          required: true
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"update successfully"}
+    delete:
+      description: remove product by specific id
+      queryParameters:
+        id:
+          type: integer
+          required: true
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"remove product by specific id"}
+
+  post:
+      description: create products
+      responses:
+        201:
+          body:
+            application/json:
+              example: ("successfully add"
+
+/bills:
+  description: retrive all bill data 
+  get:
+    description: fetch bill data 
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/Bill.raml
+      404:
+        body:
+          application/json:
+            example: {"data not found"}
+  post:
+    description: create all bill data
+    responses:
+      200:
+        body:
+          application/json:
+            example: {"successfully create all bill data"}
+      406:
+        body:
+          application/json:
+            example: {"method not allowed"}
+
+  /id:
+    description: get bill data by specifc id
+    get:
+      queryParameters:
+        id:
+          type: integer
+          required: true
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"message" : "Ok"}
+               
+    put:
+      queryParameters:
+        id:
+          type: integer
+          required: true
+      description: update bill data by specific id
+      responses:
+        200:
+          body:
+            application/json:
+              example: {"successfully update bill data by id"}
+    delete:
+      queryParameters:
+        id:
+          type: integer
+          required: true
+      description: remove bill data by specific id
+      responses:
+        400:
+          body:
+            application/json:
+              example: {"bad request"}
+        403:
+          body:
+            application/json:
+              example: {"forbidden"}
+
+/productcategory:
+  description: get productcategory
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/ProductCategory.raml
+            
+                
+               
+  post:
+    description: create a new productcategory
+    responses:
+      
+               
+              
+      201:
+        body:
+          application/json:
+            example:  {"id": 5, "name": "Stationery"}
+      501:
+        body:
+          application/json:
+            example: {" not implemented"}
+
+/id:
+  description: get specific productcategory by id
+  get:
+    queryParameters:
+      id:
+        type: integer
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              
+                {"id": 7, "name": "Vegetable"}
+                
+  put:
+    description: Create a new productcategory
+    queryParameters:
+        id:
+          type: integer
+          required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+            
+                {"id": 8, "name": "Cleaning Item"}
+                
+      201:
+        body:
+          application/json:
+            example: {"successfully created"}
+  
+  delete:
+    description: delete particular productcategory by id
+    queryParameters:
+        id:
+          type: integer
+          required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example: {"successfully removed"}
+      403:
+        body:
+          application/json:
+            example: {"forbidden"}          
